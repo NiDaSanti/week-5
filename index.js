@@ -6,11 +6,20 @@
  //@param {number} number1
  //@param {number} number2
  //@return {number} product
-const multiplication = () => {
-  return
+ let num1 = parseInt(prompt(`Enter A Postive Number`))
+ let num2 = parseInt(prompt(`Enter Another Postive Number`)) 
+ const multiplication = (num1, num2) => {  
+  var counter = 1;
+    let total = num1;
+    while (counter<num2){
+    total+=num1
+    counter++
+    }
+    return(total)
+9
 }
 
-const answer1 = multiplication()
+const answer1 = multiplication(num1, num2)
 console.log('answer1', answer1)
 
 const htmlTarget = document.getElementById('a-1')
@@ -25,9 +34,40 @@ htmlTarget.innerHTML = answer1
 
 //@param {string}
 //@return {character} => array of characters
+
 vowelOrConsonant = () => {
-  return
+
+var words = prompt("write something").toLowerCase().split(``); 
+
+var vowels = [`a`,`e`,`i`,`o`,`u`]
+var userVowels=[]
+var userConson=[]
+var spaces=[]
+
+for(i=0; i<words.length; i++){
+ let letter = words[i];
+  if ((letter === (`a`)) || (letter === `e`) || (letter === `i`) || (letter === `o`) || (letter === `u`)){
+   userVowels.unshift(letter);
+}else if (letter === (` `)){
+  spaces.push(letter);
 }
+else{userConson.unshift(letter)}
+}
+
+var question = prompt(`wanna see vowels 1st or constants`).toLowerCase()
+  if (question === `vowels`) {
+        alert(` your word was ${words}  and these are vowels ${userVowels}`)
+        alert(` and these are your constantants ${userConson}`)
+        }
+        
+  else if (question === `constants`){
+        alert(` your word is ${words}these are constantants ${userConson}`)
+        alert(` and these are vowels ${userVowels}`)      
+ }
+ return(`your word is ${words}these are constantants ${userConson}, and these are vowels ${userVowels}`)
+}
+
+
 
 const answer2 = vowelOrConsonant()
 
@@ -45,16 +85,70 @@ htmlTarget2.innerHTML = answer2
 //where: name, saves the name of the player. Lives, represents the remaining oportunities each time the player fails. Fail_numbers, is an array of numbers that stores the fail numbers the player has used
 
 //@return {string} win / gameOver => the string that says if the user wasted the three oportunities showing the fails numbers or the name if the player wins
-guessTheNumber  = () => {
-  return
+//guessTheNumber  = () => {
+//  return
+//}
+
+
+restart = () => {
+  if (confirm ("Would You Like To Start A New Game? Y or N")) {
+    //Y
+   game()
+  } else{
+   //N
+   alert(`I Hoped You Enjoyed The Game`)
+   return
+
+  }
 }
 
-const answer3 = guessTheNumber()
+
+function game () {
+ var gamecounters = {
+      bot: Math.floor(Math.random() * 40)+10,
+      lives: 4,
+      lifeCounter: 3,
+      name: ``,
+      fail_numbers: []
+ };
+
+gamecounters.name = prompt('what is your name')
+console.log(gamecounters)
+
+  for (var i = 0; i < gamecounters.lives; i++) {
+    //console.log("\n");
+    alert(`You (${gamecounters.name}) currently have ${gamecounters.lifeCounter} lives`);
+    let enter = parseInt(prompt("Guess a number 10-50"));
+    let player1 = enter;
+    if (gamecounters.lifeCounter == 0) {
+      alert(`Game over ${gamecounters.name}, the number was ${gamecounters.bot}`);
+      restart();
+      break;
+    }
+    if (player1 == gamecounters.bot) {
+      alert(`You won!!! ${gamecounters.name.toUpperCase()}`  );
+      break;
+    }
+    if (player1 !== gamecounters.bot) {
+       gamecounters.fail_numbers.push(enter);
+       alert(`Woops! Sorry! ${gamecounters.name} That wasn't the number! Previous guesses were ${gamecounters.fail_numbers}`);
+    } if (confirm ("Would You Like To Try Again Y or N")){
+      //Y
+      gamecounters.lifeCounter--;
+      } else{
+       //N
+       alert(`You ${gamecounters.name}  Failed the number was ${gamecounters.bot}`);
+       alert(`Thanks for playing ${gamecounters.name} !`);
+       break;
+      }
+  }
+  return(`Game over ${gamecounters.name}, the number was ${gamecounters.bot} and Failed the number were ${gamecounters.fail_numbers}`)
+}
+
+const answer3 = game()
 
 const htmlTarget3 = document.getElementById('a-3')
 htmlTarget3.innerHTML = answer3
-
-
 
 //------------------------ Question 4 ---------------------------
 // In the function below we are giving you an array of objects, each one with the same properties. Ask to the user for 3 diferentes options to sorting the array from the highest to lowest. In the case of a string, the criteria to sort must be the length of the string. The first one is sorting the array of objects based on the title property.
@@ -62,25 +156,38 @@ htmlTarget3.innerHTML = answer3
 //example: if the user select sorting by title the return value must be: "Mockingjay: The Final Book of The Hunger Games; Walter Isaacson; The Road Ahead"
 
 sort = () => {
-
+  var sortField = prompt(`Insert title, author or libraryId for info`);
   var library = [
-   {
-       title:  'The Road Ahead',
-       author: 'Bill Gates',
-       libraryID: 1254
-   },
-   {
-       title: 'Walter Isaacson',
-       author: 'Steve Jobs',
-       libraryID: 4264
-   },
-   {
-       title: 'Mockingjay: The Final Book of The Hunger Games',
-       author: 'Suzanne Collins',
-       libraryID: 3245
-   }];
+    {
+      title: 'The Road Ahead',
+      author: 'Bill Gates',
+      libraryId: 1254
+    },
+    {
+      title: 'Walter Isaacson',
+      author: 'Steve Jobs',
+      libraryId: 4264
+    },
+    {
+      title: 'Mockingjay: The Final Book of The Hunger Games',
+      author: 'Suzanne Collins',
+      libraryId: 3245
+    }];
 
-  return
+  let result = []
+
+  if (sortField === 'title') {
+    result = library.sort(function(a, b) { return a.title.length - b.title.length }).reverse()
+  } else if (sortField === 'author') {
+    result = library.sort(function(a, b) { return a.author.length - b.author.length }).reverse()
+  } else if (sortField === 'libraryId') {
+    result = library.sort(function(a, b) { return a.libraryId - b.libraryId }).reverse()
+  }
+
+  return result.map(function(book) {
+    return book[sortField]
+  })
+
 }
 
 const answer4 = sort()
