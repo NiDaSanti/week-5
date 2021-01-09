@@ -2,7 +2,7 @@
 //------------------------ Question 1---------------------------
 //Write a function that ask the user for two numbers and return the product of them. But the challenge here is that you can't use the operator * (you can't make the product)
 //hint: multiplication is a sequence of sums
-
+/*
  //@param {number} number1
  //@param {number} number2
  //@return {number} product
@@ -142,40 +142,40 @@ console.log(gamecounters)
        break;
       }
   }
-  return(`Game over ${gamecounters.name}, the number was ${gamecounters.bot} and Failed the number were ${gamecounters.fail_numbers}`)
+  return(`${gamecounters.name}, the number was ${gamecounters.bot} and Failed the number were ${gamecounters.fail_numbers}`)
 }
 
 const answer3 = game()
 
 const htmlTarget3 = document.getElementById('a-3')
 htmlTarget3.innerHTML = answer3
-
+*/
 //------------------------ Question 4 ---------------------------
 // In the function below we are giving you an array of objects, each one with the same properties. Ask to the user for 3 diferentes options to sorting the array from the highest to lowest. In the case of a string, the criteria to sort must be the length of the string. The first one is sorting the array of objects based on the title property.
 // The second one sorting the array of objects based on the author property, the third one based on the library property. finally, the return value has to be the string sorted of the property selected separeted with a semicolon. Remember you have to sort all of the array based on the selected property
 //example: if the user select sorting by title the return value must be: "Mockingjay: The Final Book of The Hunger Games; Walter Isaacson; The Road Ahead"
 
 sort = () => {
-  var sortField = prompt(`Insert title, author or libraryId for info`);
+  var sortField = prompt(`Insert title, author or libraryid for info`).toLowerCase();
   var library = [
     {
       title: 'The Road Ahead',
       author: 'Bill Gates',
-      libraryId: 1254
+      libraryid: 1254
     },
     {
       title: 'Walter Isaacson',
       author: 'Steve Jobs',
-      libraryId: 4264
+      libraryid: 4264
     },
     {
       title: 'Mockingjay: The Final Book of The Hunger Games',
       author: 'Suzanne Collins',
-      libraryId: 3245
+      libraryid: 3245
     }];
 
   let result = []
-
+/*
   if (sortField === 'title') {
     result = library.sort(function(a, b) { return a.title.length - b.title.length }).reverse()
   } else if (sortField === 'author') {
@@ -183,6 +183,19 @@ sort = () => {
   } else if (sortField === 'libraryId') {
     result = library.sort(function(a, b) { return a.libraryId - b.libraryId }).reverse()
   }
+*/
+
+if(sortField == `title` || sortField == `author` || sortField == `libraryid`){
+      result = library.sort(function(a, b) { return b[sortField].length - a[sortField].length })
+  }
+  else {
+  alert(`you must type either "title", "author" or "libraryid"`)
+   console.log(`you have reached this point`)
+   
+  }
+ 
+  console.log(sortField)
+
 
   return result.map(function(book) {
     return book[sortField]
